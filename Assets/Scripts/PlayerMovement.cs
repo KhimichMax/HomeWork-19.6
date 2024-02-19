@@ -9,8 +9,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool _isGrounded;
     [SerializeField] private Transform _groundCollTr;
     [SerializeField] private LayerMask _groundMask;
-    [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private float _speed = 1;
+    [SerializeField] private float _rangeGround = 0.07f;
 
     private float currentHorizontalMovement;
     private Animator _anim;
@@ -21,7 +21,6 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         _anim = GetComponent<Animator>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Walk(float move)
@@ -50,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckingGround()
     {
-        _isGrounded = Physics2D.OverlapCircle(_groundCollTr.position, 0, _groundMask);
+        _isGrounded = Physics2D.OverlapCircle(_groundCollTr.position, _rangeGround, _groundMask);
         _anim.SetBool("isJump", _isGrounded);
     }
 
@@ -60,5 +59,13 @@ public class PlayerMovement : MonoBehaviour
         Walk(moveHor);
         Flip();
         Jump(jump);
+    }
+    
+    private void OnDrawGizmosSelected()
+    {
+        if (_groundCollTr == null)
+            return;
+        
+        Gizmos.DrawWireSphere(_groundCollTr.position, _rangeGround);
     }
 }

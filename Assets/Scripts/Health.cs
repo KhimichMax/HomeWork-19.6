@@ -33,9 +33,12 @@ public class Health : MonoBehaviour
         {
             _isAlive = false;
             _anim.SetBool("isDead", _isAlive);
-            //ПАМАГИТИ
-            
         }
+    }
+
+    private void DestroyGameObj()
+    {
+        Destroy(gameObject);
     }
 }
     

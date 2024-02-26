@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    private DamageDealler _damageDealler;
+    private EnemyDamageDealler _enemyDamageDealler;
     
     [SerializeField] private float _speed, _timeToRevert;
     [SerializeField] private Animator _anim;
@@ -12,7 +12,7 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private LayerMask _playerMask;
     [SerializeField] private Transform _player;
     [SerializeField] private Transform _pointToBack;
-    [SerializeField] private float stoppingDistance; 
+    [SerializeField] private float stoppingDistance;
     
     private const float IDLE_STATE = 0;
     private const float WALK_STATE = 1;
@@ -20,8 +20,6 @@ public class EnemyMovement : MonoBehaviour
 
     private Vector2 currentPosition;
     private bool _canHit;
-    /*private float _currentRecharge = 0;
-    private float _countRecharge = 2f;*/
     private bool isRight = true;
     private bool _isDetectAttack;
     private bool _isDetectChase;
@@ -31,7 +29,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void Start()
     {
-        _damageDealler = GetComponent<DamageDealler>();
+        _enemyDamageDealler = GetComponent<EnemyDamageDealler>();
         rb = GetComponent<Rigidbody2D>();
         currentState = WALK_STATE;
         currentTimeToRevert = 0;
@@ -96,13 +94,13 @@ public class EnemyMovement : MonoBehaviour
             
             if (Vector2.Distance(transform.position, _player.position) > stoppingDistance)
             {
-                transform.position = Vector2.MoveTowards(transform.position, _player.position, 0.1f * Time.deltaTime);
+                transform.position = Vector2.MoveTowards(transform.position, _player.position, 0.5f * Time.deltaTime);
             }else if (Vector2.Distance(transform.position, _player.position) <= stoppingDistance)
             {
                 if (_isDetectAttack)
                 {
                     _canHit = true;
-                    _damageDealler.Attack(_canHit);
+                    _enemyDamageDealler.Attack(_canHit);
                     
                 }else if (!_isDetectAttack)
                 {
@@ -118,10 +116,6 @@ public class EnemyMovement : MonoBehaviour
                 (currentPosition.x < _pointToBack.position.x && transform.localScale.x < 0))
             {
                 transform.localScale *= new Vector2(-1, 1);
-            }
-            if (transform.position.x == _pointToBack.position.x)
-            {
-                currnetStateEnemy = true;   
             }
         }
     }
@@ -147,6 +141,14 @@ public class EnemyMovement : MonoBehaviour
             {
                 isRight = !isRight;
                 currentState = IDLE_STATE;
+            }
+        }
+
+        if (!_isDetectChase)
+        {
+            if (collision.CompareTag("PointReturn"))
+            {
+                currnetStateEnemy = true; 
             }
         }
     }

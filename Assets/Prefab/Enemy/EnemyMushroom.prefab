@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7047478607522397843}
   - component: {fileID: 9117959531671639287}
   - component: {fileID: 2093721629038996590}
-  - component: {fileID: 3506304436422345920}
+  - component: {fileID: 2103722218461221698}
   m_Layer: 7
   m_Name: EnemyMushroom
   m_TagString: Untagged
@@ -213,7 +213,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &3506304436422345920
+--- !u!114 &2103722218461221698
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -222,15 +222,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 2199566648103365528}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a6f9265c983e51489c4bdbd1a1c41a6, type: 3}
+  m_Script: {fileID: 11500000, guid: a7d35f8702efcb94395b5a7a000c7856, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _attackCollTr: {fileID: 1867303566440330078}
-  _attackRange: 0.09
+  _attackRange: 0.5
   _enemyMask:
     serializedVersion: 2
     m_Bits: 256
-  _damage: 5
+  _damage: 20
   _countRecharge: 2
   _currentRecharge: 0
 --- !u!1 &2995178684413088484

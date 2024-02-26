@@ -7,19 +7,17 @@ public class Health : MonoBehaviour
     private bool _isAlive;
     private Animator _anim;
     
-    
     private void Awake()
     {
         _anim = GetComponent<Animator>();
         _currentHP = _maxHP;
         _isAlive = true;
-        
     }
 
     public void TakeDamage(float damage)
     {
         _currentHP -= damage;
-        CheckIsAlive();
+        CheckIsAlive();   
     }
 
     private void CheckIsAlive()
@@ -39,6 +37,12 @@ public class Health : MonoBehaviour
     private void DestroyGameObj()
     {
         Destroy(gameObject);
+    }
+
+    public float MaxHp
+    {
+        get => _maxHP;
+        set => _maxHP = value;
     }
 }
     
